@@ -43,7 +43,8 @@ function displayQuestion() {
 
             } else {
                 console.log("incorrect answer");
-                timer -= 10;
+                calculateTimer();
+                //timer -= 10;
                 if (quizQuestions.length - 1 === currentQuestion) {
                     // done with quiz / go to high score
                     enterNewHighScore();
@@ -73,6 +74,14 @@ function startTimer() {
     }, 1000);
     
 }
+
+function calculateTimer() {
+    if (timer <= 10) {
+        timer === 0
+    } else {
+        timer -= 10
+    }
+};
 
 // adds a new high score in the array
 // call this function once the quiz has finished
