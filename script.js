@@ -98,7 +98,8 @@ function enterNewHighScore() {
     localStorage.setItem('scores', JSON.stringify(scores));
     displayHighScore();
 }
-// ran when the quiz is complete
+
+// run when the quiz is complete
 function displayHighScore() {
     var scores = JSON.parse(localStorage.getItem('scores')) || [];
     // sorts the scores in order
@@ -111,10 +112,18 @@ function displayHighScore() {
             scores[i + 1] = temp;
         }
     }
+    
+    var midContent = document.getElementById("mid-content");
+    var scoresList = document.createElement("ol");
+    
+
     document.getElementById('top-content').innerHTML = '';
     document.getElementById('mid-content').innerHTML = '';
     document.getElementById('buttons').innerHTML = '';
     document.getElementById("buttons").className = "buttonsSectionCentered";
+    midContent.appendChild(scoresList);
+
+
 
     var startAgainBtn = document.createElement("button");
     var clearHighScoresBtn = document.createElement("button");
@@ -138,11 +147,20 @@ function displayHighScore() {
         document.getElementById('mid-content').innerHTML = '';
     });
 
-    for (var i = 0; i < scores.length; i++) {
-        console.log(scores)
-        document.getElementById("mid-content").innerText += scores[i].initials + " " + scores[i].score;
-    }
 
+    // var sortedScores = scores.score.sort(function(a,b) {
+    //     var currentScore = scores.score
+    //     return currentScore[a] - currentScore[b] 
+    // });
+    // console.log(sortedScores);
+
+    //console.log(scores);
+
+    for (var i = 0; i < scores.length; i++) {
+        var scoreEntry = document.createElement("li");
+        scoreEntry.innerText = scores[i].initials + " " + scores[i].score;
+        scoresList.appendChild(scoreEntry);
+    }
     
 }
 
