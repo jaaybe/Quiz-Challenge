@@ -65,7 +65,7 @@ main {
 
 .buttonCentered {
     width: auto;
-    height: 40px;
+    height: auto;
     font-size: 20px;
     color: white;
     background-color: purple;
@@ -81,8 +81,8 @@ main {
 
 
 .buttonLeft {
-    width: 40%;
-    height: 40px;
+    width: 50%;
+    height: auto;
     font-size: 20px;
     color: white;
     background-color: purple;
