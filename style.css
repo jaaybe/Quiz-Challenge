@@ -41,16 +41,40 @@ main {
 
 }
 
-.button {
+.test {
+    font-size: x-large;
+    color: chartreuse;
+}
+
+.buttonCentered {
+    width: 200px;
+    height: 40px;
+    font-size: 20px;
+    color: white;
+    background-color: purple;
+    border-radius: 7px;
+    text-align: center;
+}
+
+.buttonCentered:hover {
+    background-color: rgb(247, 204, 244);
+    color: black;
+}
+
+
+.buttonLeft {
+    width: 200px;
+    height: 40px;
     font-size: 20px;
     color: white;
     background-color: purple;
     padding: 6px 12px;
     border-radius: 7px;
-    box-shadow: 2px 1px 1px lightgray;
+    margin: 20px;
+    text-align: left;
 }
 
-.button:hover {
+.buttonLeft:hover {
     background-color: rgb(247, 204, 244);
     color: black;
 }
