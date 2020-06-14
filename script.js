@@ -1,13 +1,16 @@
 var quizQuestions = [
-    { q: "test question 1", a: 0, options: ["A. Washington DC", "B. Los Angeles", "C. San Fran", "D. Seattle"] },
-    { q: "test question 2", a: 0, options: ["A. Washington DC", "B. Los Angeles", "C. San Fran", "D. Seattle"] },
-    { q: "test question 3", a: 0, options: ["A. Washington DC", "B. Los Angeles", "C. San Fran", "D. Seattle"] },
-    { q: "test question 4", a: 0, options: ["A. Washington DC", "B. Los Angeles", "C. San Fran", "D. Seattle"] },
-    { q: "test question 5", a: 0, options: ["A. Washington DC", "B. Los Angeles", "C. San Fran", "D. Seattle"] },
+    { q: "Commonly used data types do NOT include:", a: 2, options: ["A. strings", "B. booleans", "C. alerts", "D. numbers"] },
+    { q: "The condition in an IF / ELSE statement is enclosed with:", a: 1, options: ["A. quotes", "B. curly brackets", "C. parenthesis", "D. square brackets"] },
+    { q: "Arrays in JavaScript can be used to store _______ .", a: 3, options: ["A. numbers and strings", "B. other arrays", "C. booleans", "D. all of the above"] },
+    { q: "String values must be enclosed within ______ when being assigned to variables.", a: 2, options: ["A. commas", "B. curly brackets", "C. quotes", "D. parenthesis"] },
+    { q: "A very useful tool used during development and debugging for printing content to the debugger is:", a: 3, options: ["A. JavaScript", "B. terminal/bash", "C. for loops", "D. console.log"] },
 ];
 
+var FinalScore = 0
 var currentQuestion = 0;
 var timer = 60;
+var createTimer
+
 document.getElementById("start-quiz").addEventListener("click", function () {
     displayQuestion();
     startTimer();
@@ -20,6 +23,7 @@ function displayQuestion() {
     // the first question
     var question = quizQuestions[currentQuestion];
     document.getElementById("mid-content").innerText = question.q;
+    document.getElementById("mid-content").className = "questions";
 
     for (var i = 0; i < question.options.length; i++) {
         var button = document.createElement("button")
@@ -53,11 +57,12 @@ function displayQuestion() {
 
         })
         document.getElementById("buttons").appendChild(button);
+        document.getElementById("buttons").className = "buttonsSectionLeft";
     }
 };
 
 function startTimer() {
-    var createTimer = setInterval(function () {
+    createTimer = setInterval(function () {
         timer--;
         document.getElementById("timer").innerText = timer;
         if (timer == 0) {
@@ -66,15 +71,18 @@ function startTimer() {
             enterNewHighScore();
         }
     }, 1000);
+    
 }
 
 // adds a new high score in the array
 // call this function once the quiz has finished
 function enterNewHighScore() {
+    FinalScore = timer;
+    clearInterval(createTimer);
     var initials = prompt('Enter your initials: ');
     var scores = JSON.parse(localStorage.getItem('scores')) || [];
     scores.push({
-        score: timer,
+        score: FinalScore,
         initials: initials
     })
     // save the scores back to the localStorage
@@ -97,12 +105,13 @@ function displayHighScore() {
     document.getElementById('top-content').innerHTML = '';
     document.getElementById('mid-content').innerHTML = '';
     document.getElementById('buttons').innerHTML = '';
+    document.getElementById("buttons").className = "buttonsSectionCentered";
 
     var startAgainBtn = document.createElement("button");
     var clearHighScoresBtn = document.createElement("button");
     startAgainBtn.innerText = "Start Quiz Again";
     startAgainBtn.className = "buttonCentered";
-    clearHighScoresBtn.innerText = "Clear All High Scores";
+    clearHighScoresBtn.innerText = "Clear High Scores";
     clearHighScoresBtn.className = "buttonCentered";
 
     document.getElementById("buttons").appendChild(startAgainBtn);
@@ -124,6 +133,8 @@ function displayHighScore() {
         console.log(scores)
         document.getElementById("mid-content").innerText += scores[i].initials + " " + scores[i].score;
     }
+
+    
 }
 
 
