@@ -11,6 +11,9 @@ var currentQuestion = 0;
 var timer = 60;
 var createTimer
 
+var highScoresPageEl = document.getElementById("highScoresPage");
+highScoresPageEl.addEventListener("click", displayHighScore);
+
 document.getElementById("start-quiz").addEventListener("click", function () {
     displayQuestion();
     startTimer();
@@ -20,6 +23,9 @@ function displayQuestion() {
     document.getElementById('top-content').innerHTML = '';
     document.getElementById('mid-content').innerHTML = '';
     document.getElementById('buttons').innerHTML = '';
+    document.getElementById("highScoresPage").hidden = true;
+    document.getElementById("nav").style.justifyContent = "space-evenly";
+    
     // the first question
     var question = quizQuestions[currentQuestion];
     document.getElementById("mid-content").innerText = question.q;
@@ -63,6 +69,7 @@ function displayQuestion() {
 };
 
 function startTimer() {
+    document.getElementById("timerHolder").className = "activeTimer";
     createTimer = setInterval(function () {
         timer--;
         document.getElementById("timer").innerText = timer;
@@ -72,7 +79,7 @@ function startTimer() {
             enterNewHighScore();
         }
     }, 1000);
-    
+
 }
 
 function calculateTimer() {
@@ -112,17 +119,21 @@ function displayHighScore() {
             scores[i + 1] = temp;
         }
     }
-    
+
+    //document.getElementById("highScoresPage").hidden = false;
     var midContent = document.getElementById("mid-content");
     var scoresList = document.createElement("ol");
-    
 
-    document.getElementById('top-content').innerHTML = '';
+
+    document.getElementById('top-content').innerHTML = 'HIGH SCORES';
+    document.getElementById('top-content').className = "hero";
     document.getElementById('mid-content').innerHTML = '';
+    document.getElementById("mid-content").className = "questions";
     document.getElementById('buttons').innerHTML = '';
     document.getElementById("buttons").className = "buttonsSectionCentered";
+    document.getElementById("highScoresPage").hidden = true;
+    document.getElementById("nav").style.justifyContent = "space-evenly";
     midContent.appendChild(scoresList);
-
 
 
     var startAgainBtn = document.createElement("button");
@@ -142,36 +153,19 @@ function displayHighScore() {
         startTimer();
     });
 
-    clearHighScoresBtn.addEventListener("click", function() {
+    clearHighScoresBtn.addEventListener("click", function () {
         localStorage.clear();
         document.getElementById('mid-content').innerHTML = '';
     });
 
+    scores.sort((a, b) => {
+        return b.score - a.score
+    });
 
-    // var sortedScores = scores.score.sort(function(a,b) {
-    //     var currentScore = scores.score
-    //     return currentScore[a] - currentScore[b] 
-    // });
-    // console.log(sortedScores);
-
-    //console.log(scores);
-
-    for (var i = 0; i < scores.length; i++) {
+    for (var i = 0; i < 5; i++) {
         var scoreEntry = document.createElement("li");
         scoreEntry.innerText = scores[i].initials + " " + scores[i].score;
         scoresList.appendChild(scoreEntry);
     }
-    
-}
 
-
-
-
-
-
-
-
-
-
-
-
+};
